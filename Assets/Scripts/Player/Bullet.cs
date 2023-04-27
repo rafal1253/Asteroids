@@ -5,12 +5,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    [SerializeField] int _damage = 1;
     private Action<Bullet> _disappearAction;
-
-    private void OnEnable()
-    {
-
-    }
 
     public void Init(Action<Bullet> disappearAction)
     {
@@ -19,8 +15,12 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<Enemy>())
+        IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
+        if (damageable != null)
+        {
+            damageable.Damage(_damage);
             _disappearAction(this);
+        }
     }
 }
 

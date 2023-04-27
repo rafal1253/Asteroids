@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
-public class PlayerShip : MonoBehaviour
+public class PlayerShip : MonoBehaviour, IDamageable
 {
     [Header("Health")]
-    [SerializeField] int _lifes = 3;
+    [SerializeField] int _startLifes = 3;
+    [SerializeField] int _actualLifes;
 
     [Header("Movement")]
     [SerializeField] float _acceleration = 1f;
@@ -16,6 +17,10 @@ public class PlayerShip : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+    }
+    private void Start()
+    {
+        _actualLifes = _startLifes;
     }
     private void Update()
     {
@@ -47,4 +52,26 @@ public class PlayerShip : MonoBehaviour
             _rb.velocity = Vector2.ClampMagnitude(_rb.velocity, _maxSpeed);
         }
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            enemy.Damage(1);
+            Damage(1);
+        }
+    }
+
+    public void Damage(int damageTaken)
+    {
+        _actualLifes -= damageTaken;
+        //transform.position = Vector3.zero;
+
+        if (_actualLifes <= 0)
+        {
+            // GAME OVER
+        }
+    }
+
+
 }
