@@ -17,6 +17,11 @@ public class Bullet : MonoBehaviour
         _disappearAction = disappearAction;
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<Enemy>())
+            _disappearAction(this);
+    }
 }
 
 

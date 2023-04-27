@@ -32,7 +32,7 @@ public class Launcher : MonoBehaviour
         {
             Bullet bullet = _pool.Get();
             yield return new WaitForSeconds(_bulletLifeTime);
-            _pool.Release(bullet);
+            if (bullet.gameObject.activeInHierarchy) _pool.Release(bullet);
         }
     }
 
@@ -41,7 +41,7 @@ public class Launcher : MonoBehaviour
 
     private void ConstructPoolObject()
     {
-        _pool = new ObjectPool<Bullet>(CreateBullet, OnGetBullet, OnReleaseBullet, OnDestroyBullet, true, _defaultCapacity, _maxSize);
+        _pool = new ObjectPool<Bullet>(CreateBullet, OnGetBullet, OnReleaseBullet, OnDestroyBullet, false, _defaultCapacity, _maxSize);
     }
     private Bullet CreateBullet()
     {
