@@ -6,11 +6,12 @@ using UnityEngine.Pool;
 public class EnemySpawner : MonoBehaviour
 {
     [Header("Enemy")]
-    [SerializeField] Enemy _enemyPrefab;
+    [SerializeField] Enemy[] _enemyPrefabList;
 
     [Header("ObjectPoolSettings")]
     [SerializeField] int _defaultCapacity = 10;
     [SerializeField] int _maxSize = 20;
+    ObjectPool<Enemy>[] _objectPoolList;
     ObjectPool<Enemy> _pool;
 
     Camera _mainCam;
@@ -18,14 +19,16 @@ public class EnemySpawner : MonoBehaviour
 
     enum Axis { Horizontal, Vertical};
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        _objectPoolList = new ObjectPool<Enemy>[_enemyPrefabList.Length];
+    }
     void Start()
     {
-        ConstructPoolObject();
+        ConstructObjectPoolList();
         _mainCam = Camera.main;
     }
 
-    // Update is called once per frame
     void Update()
     {
         SpawnEnemy();
@@ -35,20 +38,31 @@ public class EnemySpawner : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire2"))
         {
-            Enemy enemy = _pool.Get();
+            Enemy enemy = _objectPoolList[Random.Range(0, _objectPoolList.Length)].Get();
         }
     }
 
 
     #region ObjectPool
 
-    private void ConstructPoolObject()
+    private void ConstructObjectPoolList()
     {
-        _pool = new ObjectPool<Enemy>(CreateEnemy, OnGetEnemy, OnReleaseEnemy, OnDestroyEnemy, true, _defaultCapacity, _maxSize);
+        for (int i = 0; i < _enemyPrefabList.Length; i++)
+        {
+            ConstructPoolObject(i);
+        }
     }
-    private Enemy CreateEnemy()
+    private void ConstructPoolObject(int poolIndex)
     {
-        Enemy enemy = Instantiate(_enemyPrefab, transform.position, transform.rotation, transform);
+        _objectPoolList[poolIndex] = new ObjectPool<Enemy>(() => CreateEnemy(poolIndex), OnGetEnemy, OnReleaseEnemy, OnDestroyEnemy, true, _defaultCapacity, _maxSize);
+    }
+    private Enemy CreateEnemy(int poolIndex)
+    {
+        Enemy enemy = Instantiate(_enemyPrefabList[poolIndex], transform.position, transform.rotation, transform);
+        enemy.Init(delegate
+        {
+            _objectPoolList[poolIndex].Release(enemy);
+        });
         return enemy;
     }
     private void OnGetEnemy(Enemy enemy)
@@ -69,8 +83,7 @@ public class EnemySpawner : MonoBehaviour
         }
 
         enemy.transform.position = new Vector2(xSpawnPos, ySpawnPos);
-
-        enemy.Init(delegate { _pool.Release(enemy); });
+        enemy.OnNewRespawn();
         enemy.gameObject.SetActive(true);
 
     }

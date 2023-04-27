@@ -14,11 +14,9 @@ public class Enemy : MonoBehaviour, IDamageable
 
     [Header("Enemy movement")]
     [SerializeField] float _movementSpeed = 1f;
-    [Range(0f,7f)] [Tooltip("A larger value means more randomness in the direction of the initial movement. If 0, the object will move towards the center.")]
-    [SerializeField] float _directionFactor = 7f;
+    [Range(0f,5f)] [Tooltip("A larger value means more randomness in the direction of the initial movement. If 0, the object will move towards the center.")]
+    [SerializeField] float _directionFactor = 5f;
     
-
-
     private Vector3 _direction;
     private Action<Enemy> _disappearAction;
 
@@ -26,9 +24,11 @@ public class Enemy : MonoBehaviour, IDamageable
     public void Init(Action<Enemy> disappearAction)
     {
         _disappearAction = disappearAction;
+    }
+    public void OnNewRespawn()
+    {
         _actualLifes = _startLifes;
         _direction = new Vector3(-transform.position.x + Random.Range(-_directionFactor, _directionFactor), -transform.position.y + Random.Range(-_directionFactor, _directionFactor), 0).normalized;
-
     }
 
     // Update is called once per frame
@@ -36,8 +36,6 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         transform.position += _direction * Time.deltaTime * _movementSpeed;
     }
-
-
 
     public void Damage(int damageTaken)
     {
