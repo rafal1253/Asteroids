@@ -7,6 +7,8 @@ public class EnemySpawner : MonoBehaviour
 {
     [Header("Enemy")]
     [SerializeField] Enemy[] _enemyPrefabList;
+    [SerializeField] float _spawnRate = 2f;
+    [SerializeField] bool _isSpawnOn = false;
 
     [Header("ObjectPoolSettings")]
     [SerializeField] int _defaultCapacity = 10;
@@ -24,26 +26,30 @@ public class EnemySpawner : MonoBehaviour
     }
     void Start()
     {
-        ConstructObjectPoolList();
         _mainCam = Camera.main;
+        ConstructObjectPoolList();
+        _isSpawnOn = false;
     }
 
-    void Update()
+    public void StartSpawn()
     {
-        SpawnEnemy();
+        StartCoroutine(SpawnEnemies(_spawnRate));
     }
 
-    private void SpawnEnemy()
+    IEnumerator SpawnEnemies(float spawnRate)
     {
-        if (Input.GetButtonDown("Fire2"))
+        while(_isSpawnOn)
         {
-            Enemy enemy = _objectPoolList[Random.Range(0, _objectPoolList.Length)].Get();
+            _objectPoolList[Random.Range(0, _objectPoolList.Length)].Get();
+            yield return new WaitForSeconds(spawnRate);
         }
     }
-
+    public void SpawnToggle(bool isSpawnOn)
+    {
+        _isSpawnOn = isSpawnOn;
+    }
 
     #region ObjectPool
-
     private void ConstructObjectPoolList()
     {
         for (int i = 0; i < _enemyPrefabList.Length; i++)
