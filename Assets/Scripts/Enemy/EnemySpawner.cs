@@ -12,7 +12,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] int _defaultCapacity = 10;
     [SerializeField] int _maxSize = 20;
     ObjectPool<Enemy>[] _objectPoolList;
-    ObjectPool<Enemy> _pool;
 
     Camera _mainCam;
     Axis _spawnAxis;
