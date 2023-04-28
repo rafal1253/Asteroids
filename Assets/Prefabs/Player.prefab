@@ -133,7 +133,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 1
+  m_LinearDrag: 3
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -154,7 +154,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startLifes: 3
-  _actualLifes: 0
   _acceleration: 50
   _maxSpeed: 7
 --- !u!60 &586893231963964566
@@ -243,7 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _autoFire: 0
-  _fireRatePerSec: 0.5
+  _fireRatePerSec: 0.25
   _bulletPrefab: {fileID: 1029240589487320583, guid: 27baa6ee3c025eb40b522af2af171589, type: 3}
   _bulletSpeed: 8
   _defaultCapacity: 10

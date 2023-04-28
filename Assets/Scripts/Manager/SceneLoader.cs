@@ -21,13 +21,17 @@ public class SceneLoader : MonoBehaviour
     }
 
 
-    public void LoadScene(int sceneIndex)
+    public void LoadMainMenu()
     {
-        SceneManager.LoadScene(sceneIndex);
+        SceneManager.LoadScene("MainMenu");
     }
-    public void LoadScene(string sceneName)
+    public void LoadGameplayScreen()
     {
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene("GameplayScreen");
+    }
+    public void LoadGameOverScreen()
+    {
+        SceneManager.LoadScene("GameOverScreen");
     }
     public void QuitGame()
     {

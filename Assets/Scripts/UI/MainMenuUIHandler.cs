@@ -22,7 +22,7 @@ public class MainMenuUIHandler : MonoBehaviour
 
     private void StartGame()
     {
-        SceneLoader.Instance.LoadScene("GameplayScreen");
+        SceneLoader.Instance.LoadGameplayScreen();
     }
     private void QuitGame()
     {

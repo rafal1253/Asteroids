@@ -42,7 +42,10 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         _actualLifes -= damageTaken;
 
-        if (_actualLifes <= 0) 
+        if (_actualLifes <= 0)
+        {
+            GameManager.Instance.CollectedPoints += _destroyPoints;
             _disappearAction(this);
+        }
     }
 }

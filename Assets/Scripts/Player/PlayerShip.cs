@@ -4,13 +4,10 @@ using UnityEngine;
 using UnityEngine.Pool;
 public class PlayerShip : MonoBehaviour, IDamageable
 {
-    [Header("Health")]
-    [SerializeField] int _startLifes = 3;
-    [SerializeField] int _actualLifes;
-
     [Header("Movement")]
     [SerializeField] float _acceleration = 1f;
     [SerializeField] float _maxSpeed = 10f;
+    [SerializeField] int _damageOnContact = 1;
 
     Rigidbody2D _rb;
 
@@ -18,10 +15,7 @@ public class PlayerShip : MonoBehaviour, IDamageable
     {
         _rb = GetComponent<Rigidbody2D>();
     }
-    private void Start()
-    {
-        _actualLifes = _startLifes;
-    }
+
     private void Update()
     {
         Aim();
@@ -57,20 +51,16 @@ public class PlayerShip : MonoBehaviour, IDamageable
         Enemy enemy = collision.gameObject.GetComponent<Enemy>();
         if (enemy != null)
         {
-            enemy.Damage(1);
-            Damage(1);
+            enemy.Damage(_damageOnContact);
+            Damage(_damageOnContact);
         }
     }
 
     public void Damage(int damageTaken)
     {
-        _actualLifes -= damageTaken;
-        //transform.position = Vector3.zero;
+        GameManager.Instance.PlayerLifes -= damageTaken;
 
-        if (_actualLifes <= 0)
-        {
-            // GAME OVER
-        }
+        // ADD teleport to safe area
     }
 
 

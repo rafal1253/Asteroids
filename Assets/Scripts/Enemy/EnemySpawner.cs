@@ -33,6 +33,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void StartSpawn()
     {
+        _isSpawnOn = true;
         StartCoroutine(SpawnEnemies(_spawnRate));
     }
 
