@@ -5,10 +5,13 @@ using UnityEngine.Pool;
 
 public class Launcher : MonoBehaviour
 {
+    [SerializeField] bool _autoFire = true;
+    [SerializeField] float _fireRatePerSec = 1f;
+    float _nextFire = 0f;
+
     [Header("Bullet")]
     [SerializeField] Bullet _bulletPrefab;
     [SerializeField] float _bulletSpeed = 10f;
-    [SerializeField] float _bulletLifeTime = 2f;
 
     [Header("ObjectPoolSettings")]
     [SerializeField] int _defaultCapacity = 10;
@@ -23,22 +26,20 @@ public class Launcher : MonoBehaviour
 
     void Update()
     {
-        StartCoroutine(Shoot());
+        Shoot();
     }
 
-    IEnumerator Shoot()
+    private void Shoot()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if ((_autoFire ? true : Input.GetButtonDown("Fire1")) && Time.time > _nextFire)
         {
-            Bullet bullet = _pool.Get();
-            yield return new WaitForSeconds(_bulletLifeTime);
-            if (bullet.gameObject.activeInHierarchy) _pool.Release(bullet);
+            _nextFire = Time.time + _fireRatePerSec;
+            _pool.Get();
         }
     }
 
 
     #region ObjectPool
-
     private void ConstructPoolObject()
     {
         _pool = new ObjectPool<Bullet>(CreateBullet, OnGetBullet, OnReleaseBullet, OnDestroyBullet, false, _defaultCapacity, _maxSize);
@@ -46,14 +47,15 @@ public class Launcher : MonoBehaviour
     private Bullet CreateBullet()
     {
         Bullet bullet = Instantiate(_bulletPrefab, transform.position, transform.rotation);
+        bullet.OnNewCreate(delegate { _pool.Release(bullet); });
         return bullet;
     }
     private void OnGetBullet(Bullet bullet)
     {
         // default values
-        bullet.Init(delegate { _pool.Release(bullet); });
         bullet.transform.position = transform.position;
         bullet.transform.rotation = transform.rotation;
+        
         bullet.gameObject.SetActive(true);
         bullet.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         bullet.GetComponent<Rigidbody2D>().angularVelocity = 0f;

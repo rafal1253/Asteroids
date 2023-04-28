@@ -28,10 +28,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7495163168479846215}
+  m_Children: []
   m_Father: {fileID: 7495163168413448634}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
 --- !u!212 &7495163168024410348
 SpriteRenderer:
@@ -116,6 +115,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7495163168479846215}
   - {fileID: 7495163168024410350}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -153,7 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76aa158bbbe2cc245b8d4585fc98b2ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lifes: 3
+  _startLifes: 3
+  _actualLifes: 0
   _acceleration: 50
   _maxSpeed: 7
 --- !u!60 &586893231963964566
@@ -221,14 +222,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7495163168479846214}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.165, z: 0}
+  m_LocalRotation: {x: 0, y: -0, z: 0.7071068, w: -0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7495163168024410350}
+  m_Father: {fileID: 7495163168413448634}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
 --- !u!114 &7495163168479846212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,8 +242,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3153a2be7f7d5bc47a7f30f3f01606c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _autoFire: 0
+  _fireRatePerSec: 0.5
   _bulletPrefab: {fileID: 1029240589487320583, guid: 27baa6ee3c025eb40b522af2af171589, type: 3}
-  _bulletSpeed: 10
-  _bulletLifeTime: 2
+  _bulletSpeed: 8
   _defaultCapacity: 10
   _maxSize: 50

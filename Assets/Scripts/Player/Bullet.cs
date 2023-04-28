@@ -5,12 +5,26 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    [Header("Bullet properties")]
     [SerializeField] int _damage = 1;
+    [SerializeField] float _bulletLifeTime = 2f;
+
     private Action<Bullet> _disappearAction;
 
-    public void Init(Action<Bullet> disappearAction)
+    public void OnNewCreate(Action<Bullet> disappearAction)
     {
         _disappearAction = disappearAction;
+    }
+
+    void OnEnable()
+    {
+        StartCoroutine(DisappearAfterTime());
+    }
+
+    IEnumerator DisappearAfterTime()
+    {
+        yield return new WaitForSeconds(_bulletLifeTime);
+        _disappearAction(this);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -19,6 +33,7 @@ public class Bullet : MonoBehaviour
         if (damageable != null)
         {
             damageable.Damage(_damage);
+            StopCoroutine(DisappearAfterTime());
             _disappearAction(this);
         }
     }

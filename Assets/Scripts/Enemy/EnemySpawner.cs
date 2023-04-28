@@ -59,7 +59,7 @@ public class EnemySpawner : MonoBehaviour
     private Enemy CreateEnemy(int poolIndex)
     {
         Enemy enemy = Instantiate(_enemyPrefabList[poolIndex], transform.position, transform.rotation, transform);
-        enemy.Init(delegate
+        enemy.OnNewCreate(delegate
         {
             _objectPoolList[poolIndex].Release(enemy);
         });
@@ -83,7 +83,7 @@ public class EnemySpawner : MonoBehaviour
         }
 
         enemy.transform.position = new Vector2(xSpawnPos, ySpawnPos);
-        enemy.OnNewRespawn();
+        enemy.OnNewSpawn();
         enemy.gameObject.SetActive(true);
 
     }

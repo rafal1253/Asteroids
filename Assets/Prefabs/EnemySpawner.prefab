@@ -45,8 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPrefabList:
-  - {fileID: 7606536517712076534, guid: 2ef92f3e50616e445b28ebaf01e1694f, type: 3}
-  - {fileID: 7606536517712076534, guid: cc10ac7a18670fb4a94ad0c3ff6e5078, type: 3}
-  - {fileID: 7606536517712076534, guid: 68523d89a83c6e140ac3fd8d2a19a954, type: 3}
+  - {fileID: -1994834993271579616, guid: 2ef92f3e50616e445b28ebaf01e1694f, type: 3}
+  - {fileID: 2195188442180139192, guid: cc10ac7a18670fb4a94ad0c3ff6e5078, type: 3}
+  - {fileID: 2388191027525223539, guid: 68523d89a83c6e140ac3fd8d2a19a954, type: 3}
+  - {fileID: 4030110965368807693, guid: c046258a95d7add4799d395cb5b4f92a, type: 3}
   _defaultCapacity: 10
   _maxSize: 50

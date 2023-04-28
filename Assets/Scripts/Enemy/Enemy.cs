@@ -9,32 +9,33 @@ public class Enemy : MonoBehaviour, IDamageable
     [Header("Enemy properties")]
     [SerializeField] int _startLifes = 1;
     [SerializeField] int _destroyPoints;
-    [SerializeField] int _actualLifes;
+    int _actualLifes;
 
 
     [Header("Enemy movement")]
-    [SerializeField] float _movementSpeed = 1f;
+    [SerializeField] float _minSpeed = 1f;
+    [SerializeField] float _maxSpeed = 4f;
     [Range(0f,5f)] [Tooltip("A larger value means more randomness in the direction of the initial movement. If 0, the object will move towards the center.")]
     [SerializeField] float _directionFactor = 5f;
-    
     private Vector3 _direction;
+    
     private Action<Enemy> _disappearAction;
 
 
-    public void Init(Action<Enemy> disappearAction)
+    public void OnNewCreate(Action<Enemy> disappearAction)
     {
         _disappearAction = disappearAction;
     }
-    public void OnNewRespawn()
+    public virtual void OnNewSpawn()
     {
         _actualLifes = _startLifes;
         _direction = new Vector3(-transform.position.x + Random.Range(-_directionFactor, _directionFactor), -transform.position.y + Random.Range(-_directionFactor, _directionFactor), 0).normalized;
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
-        transform.position += _direction * Time.deltaTime * _movementSpeed;
+        transform.position += _direction * Time.deltaTime * Random.Range(_minSpeed, _maxSpeed);
     }
 
     public void Damage(int damageTaken)
