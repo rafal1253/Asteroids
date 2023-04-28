@@ -399,6 +399,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b79e250635a50a44f959a81763e782ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerNameText: {fileID: 903192730}
+  _levelReachedText: {fileID: 675686595}
+  _pointsText: {fileID: 28009593}
 --- !u!114 &706660694
 MonoBehaviour:
   m_ObjectHideFlags: 0

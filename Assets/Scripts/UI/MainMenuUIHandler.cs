@@ -11,19 +11,25 @@ public class MainMenuUIHandler : MonoBehaviour
 
     private void OnEnable()
     {
+        _nameInputField.onValueChanged.AddListener(delegate { OnNameChanged(); });
         _startGameButton.onClick.AddListener(StartGame);
         _quitGameButton.onClick.AddListener(QuitGame);
     }
     private void OnDisable()
     {
+        _nameInputField.onValueChanged.RemoveAllListeners();
         _startGameButton.onClick.RemoveAllListeners();
         _quitGameButton.onClick.RemoveAllListeners();
     }
-
+    private void OnNameChanged()
+    {
+        Data.PlayerName = _nameInputField.text;
+    }
     private void StartGame()
     {
         SceneLoader.Instance.LoadGameplayScreen();
     }
+
     private void QuitGame()
     {
         SceneLoader.Instance.QuitGame();

@@ -11,6 +11,8 @@ public class GameOverScreenUIHandler : MonoBehaviour
 
     private void Start()
     {
-        
+        _playerNameText.text = Data.PlayerName;
+        _levelReachedText.text = $"LEVEL {Data.ReachedLevel}";
+        _pointsText.text = $"{Data.EarnedPoints}";
     }
 }

@@ -50,6 +50,11 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
+        Data.EarnedPoints = CollectedPoints;
+
+        Debug.LogWarning("ToChange");
+        Data.ReachedLevel = 1;
+
         SceneLoader.Instance.LoadGameOverScreen();
     }
 
