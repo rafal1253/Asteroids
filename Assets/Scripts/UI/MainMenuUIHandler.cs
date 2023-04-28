@@ -27,7 +27,10 @@ public class MainMenuUIHandler : MonoBehaviour
     }
     private void StartGame()
     {
-        SceneLoader.Instance.LoadGameplayScreen();
+        if (!string.IsNullOrEmpty(_nameInputField.text))
+            SceneLoader.Instance.LoadGameplayScreen();
+        else
+            _nameInputField.placeholder.color = Color.red;
     }
 
     private void QuitGame()
