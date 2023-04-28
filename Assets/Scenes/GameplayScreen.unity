@@ -443,7 +443,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startPlayButton: {fileID: 401327493}
-  _nameText: {fileID: 1133145445}
   _lifesText: {fileID: 745679222}
   _pointsText: {fileID: 82561747}
 --- !u!1001 &667950641
@@ -887,7 +886,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: NAME
+  m_Text: LEVEL 1
 --- !u!222 &1133145446
 CanvasRenderer:
   m_ObjectHideFlags: 0

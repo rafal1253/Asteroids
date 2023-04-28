@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameplayScreenUIHandler : MonoBehaviour
 {
     [SerializeField] Button _startPlayButton;
-    [SerializeField] Text _nameText;
+    [SerializeField] Text _levelText;
     [SerializeField] Text _lifesText;
     [SerializeField] Text _pointsText;
 
