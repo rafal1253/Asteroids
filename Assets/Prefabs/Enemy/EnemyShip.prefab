@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _autoFire: 1
-  _fireRatePerSec: 1.5
+  _shotsPerSec: 2
   _bulletPrefab: {fileID: 1029240589487320583, guid: f4ddbbfacb6db5745a250e167dad77eb, type: 3}
-  _bulletSpeed: 2.5
+  _bulletSpeed: 4
   _defaultCapacity: 10
   _maxSize: 20
 --- !u!1 &6042179396974566709

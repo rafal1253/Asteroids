@@ -6,7 +6,7 @@ using UnityEngine.Pool;
 public class Launcher : MonoBehaviour
 {
     [SerializeField] bool _autoFire = true;
-    [SerializeField] float _fireRatePerSec = 1f;
+    [SerializeField] float _shotsPerSec = 1f;
     float _nextFire = 0f;
 
     [Header("BULLET")]
@@ -33,7 +33,7 @@ public class Launcher : MonoBehaviour
     {
         if ((_autoFire ? true : Input.GetButtonDown("Fire1")) && Time.time > _nextFire)
         {
-            _nextFire = Time.time + _fireRatePerSec;
+            _nextFire = Time.time + 1 / _shotsPerSec;
             _pool.Get();
         }
     }

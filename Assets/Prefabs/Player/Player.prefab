@@ -153,9 +153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76aa158bbbe2cc245b8d4585fc98b2ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startLifes: 3
   _acceleration: 50
   _maxSpeed: 7
+  _damageOnContact: 1
 --- !u!60 &586893231963964566
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _autoFire: 0
-  _fireRatePerSec: 0.25
+  _shotsPerSec: 4
   _bulletPrefab: {fileID: 1029240589487320583, guid: 27baa6ee3c025eb40b522af2af171589, type: 3}
   _bulletSpeed: 8
   _defaultCapacity: 10
