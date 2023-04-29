@@ -8,9 +8,10 @@ public class EnemySpawner : MonoBehaviour
     [Header("ENEMY")]
     [SerializeField] Enemy[] _enemyPrefabList;
     [Header("ENEMY SHIP SPAWNING")]
-    [SerializeField] float _minTimeToSpawn;
-    [SerializeField] float _maxTimeToSpawn;
-
+    [SerializeField] float _minTimeToSpawn = 7f;
+    [SerializeField] float _maxTimeToSpawn = 20f;
+    int _spawnedShips;
+    bool _canSpawnShip;
 
     [Header("OBJECT POOL SETTINGS")]
     [SerializeField] int _defaultCapacity = 10;
@@ -33,6 +34,9 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnLevel(LevelManager.Level level)
     {
+        _spawnedShips = 0;
+        _canSpawnShip = true;
+
         for (int i = 0; i < level.LevelAsteroidsAmounts().Length; i++)
         {
             for (int j = 0; j < level.LevelAsteroidsAmounts()[i]; j++)
@@ -40,8 +44,21 @@ public class EnemySpawner : MonoBehaviour
                 _objectPoolList[i].Get();
             }
         }
+        StartCoroutine(SpawnEnemyShips(level.EnemyShips));
+    }
 
-
+    IEnumerator SpawnEnemyShips(int ships)
+    {
+        while(ships > _spawnedShips)
+        {
+            yield return new WaitForSeconds(Random.Range(_minTimeToSpawn, _maxTimeToSpawn));
+            if (_canSpawnShip)
+            {
+                _objectPoolList[3].Get();
+                _spawnedShips++;
+                _canSpawnShip = false;
+            }
+        }
     }
 
     private bool IsAllSpawnedEnemiesDestroyed()
@@ -108,6 +125,8 @@ public class EnemySpawner : MonoBehaviour
 
         if (IsAllSpawnedEnemiesDestroyed())
             EventManager.InvokeOnEndLevel();
+        if (enemy.GetType() == typeof(EnemyShip))
+            _canSpawnShip = true;
     }
     private void OnDestroyEnemy(Enemy enemy)
     {

@@ -15,7 +15,7 @@ MonoBehaviour:
   Levels:
   - BigAsteroids: 2
     MediumAsteroids: 1
-    SmallAsteroids: 4
+    SmallAsteroids: 2
     EnemyShips: 3
   - BigAsteroids: 2
     MediumAsteroids: 2
