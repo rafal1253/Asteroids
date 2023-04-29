@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 
     int _currentLevelIndex;
 
+    private int _lifes;
     public int PlayerLifes 
     { 
         get { return _lifes; } 
@@ -22,15 +23,24 @@ public class GameManager : MonoBehaviour
                 GameOver();
         } 
     }
-    private int _lifes;
-    public int CollectedPoints { get { return _points; } set { _points = value; EventManager.InvokeOnUpdatePlayerPoints(value); } }
     private int _points;
+    public int CollectedPoints
+    { 
+        get { return _points; } 
+        set 
+        { 
+            _points = value;
+            EventManager.InvokeOnUpdatePlayerPoints(value); 
+        }
+    }
 
     public static GameManager Instance { get; private set; }
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if (Instance == null) 
+            Instance = this;
+        else 
+            Destroy(gameObject);
     }
 
     private void OnEnable()
@@ -47,6 +57,7 @@ public class GameManager : MonoBehaviour
 
     void StartNewPlay()
     {
+        // starting values
         CollectedPoints = 0;
         PlayerLifes = _startPlayerLifes;
         _currentLevelIndex = 0;
@@ -64,7 +75,6 @@ public class GameManager : MonoBehaviour
         if (_levels.Levels.Length > _currentLevelIndex + 1)
         {
             _currentLevelIndex++;
-            
             EventManager.InvokeOnStartLevel(_currentLevelIndex);
             _enemySpawner.SpawnLevel(_levels.Levels[_currentLevelIndex]);
         }

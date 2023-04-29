@@ -15,11 +15,8 @@ public class SceneLoader : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else
-        {
             Destroy(gameObject);
-        }
     }
-
 
     public void LoadMainMenu()
     {

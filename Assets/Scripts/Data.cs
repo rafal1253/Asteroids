@@ -7,5 +7,4 @@ public class Data
     public static string PlayerName;
     public static int ReachedLevel;
     public static int EarnedPoints;
-
 }

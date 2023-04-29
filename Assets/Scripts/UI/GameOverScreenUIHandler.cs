@@ -17,7 +17,6 @@ public class GameOverScreenUIHandler : MonoBehaviour
     private void OnDisable()
     {
         _backToMenuButton.onClick.RemoveAllListeners();
-
     }
     private void Start()
     {

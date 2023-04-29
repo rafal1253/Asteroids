@@ -16,17 +16,16 @@ public class EnemySpawner : MonoBehaviour
 
     Camera _mainCam;
     Axis _spawnAxis;
-
     enum Axis { Horizontal, Vertical};
 
     private void Awake()
     {
         _objectPoolList = new ObjectPool<Enemy>[_enemyPrefabList.Length];
+        ConstructObjectPoolList();
     }
     void Start()
     {
         _mainCam = Camera.main;
-        ConstructObjectPoolList();
     }
 
     public void SpawnLevel(LevelManager.Level level)
@@ -38,6 +37,8 @@ public class EnemySpawner : MonoBehaviour
                 _objectPoolList[i].Get();
             }
         }
+
+
     }
 
     private bool IsAllSpawnedEnemiesDestroyed()
