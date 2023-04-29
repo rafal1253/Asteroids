@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("GAME PROPERTIES")]
     [SerializeField] LevelManager _levels;
     [SerializeField] EnemySpawner _enemySpawner;
     [SerializeField] float _nextLevelDelay = 2f;
     [SerializeField] int _startPlayerLifes = 3;
-
     int _currentLevelIndex;
+
+    [Header("CURSOR")]
+    [SerializeField] Texture2D _aimCursor;
+
 
     private int _lifes;
     public int PlayerLifes 
@@ -61,7 +65,9 @@ public class GameManager : MonoBehaviour
         CollectedPoints = 0;
         PlayerLifes = _startPlayerLifes;
         _currentLevelIndex = 0;
-        
+
+        Cursor.SetCursor(_aimCursor, new Vector2(_aimCursor.width/2, _aimCursor.height/2), CursorMode.Auto);
+
         EventManager.InvokeOnStartLevel(_currentLevelIndex);
         _enemySpawner.SpawnLevel(_levels.Levels[_currentLevelIndex]);
     }
@@ -86,6 +92,9 @@ public class GameManager : MonoBehaviour
     {
         Data.EarnedPoints = CollectedPoints;
         Data.ReachedLevel = _currentLevelIndex + 1;
+
+        // back to default cursor
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
 
         SceneLoader.Instance.LoadGameOverScreen();
     }

@@ -45,3 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levels: {fileID: 11400000, guid: 09d1da68c6cc75f47b9acfd167214b2a, type: 2}
+  _enemySpawner: {fileID: 0}
+  _nextLevelDelay: 2
+  _startPlayerLifes: 3
+  _aimCursor: {fileID: 2800000, guid: 7eb4f541ee1bc72429c113807489e0e0, type: 3}
