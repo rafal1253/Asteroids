@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] int _startPlayerLifes = 3;
 
+    int _currentLevelIndex;
+
     public int PlayerLifes 
     { 
         get { return _lifes; } 
@@ -38,6 +40,11 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         EventManager.OnStartPlay -= StartNewPlay;
+    }
+
+    private void SetLevel(int index)
+    {
+
     }
 
     void StartNewPlay()

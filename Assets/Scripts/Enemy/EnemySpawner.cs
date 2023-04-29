@@ -50,6 +50,27 @@ public class EnemySpawner : MonoBehaviour
         _isSpawnOn = isSpawnOn;
     }
 
+    private Vector2 NewPositionOutsideCamera()
+    {
+        float xSpawnPos;
+        float ySpawnPos;
+        Vector2 newPos;
+        _spawnAxis = Random.Range(0, 2) == 0 ? Axis.Horizontal : Axis.Vertical;
+
+        if (_spawnAxis == Axis.Vertical)
+        {
+            xSpawnPos = Random.Range(0, 2) == 0 ? _mainCam.orthographicSize * _mainCam.aspect + 1 : -(_mainCam.orthographicSize * _mainCam.aspect + 1);
+            ySpawnPos = Random.Range(_mainCam.orthographicSize + 1, -(_mainCam.orthographicSize + 1));
+        }
+        else
+        {
+            xSpawnPos = Random.Range(_mainCam.orthographicSize * _mainCam.aspect + 1, -(_mainCam.orthographicSize * _mainCam.aspect + 1));
+            ySpawnPos = Random.Range(0, 2) == 0 ? _mainCam.orthographicSize + 1 : -(_mainCam.orthographicSize + 1);
+        }
+        newPos = new Vector2(xSpawnPos, ySpawnPos);
+        return newPos;
+    }
+
     #region ObjectPool
     private void ConstructObjectPoolList()
     {
@@ -73,22 +94,7 @@ public class EnemySpawner : MonoBehaviour
     }
     private void OnGetEnemy(Enemy enemy)
     {
-        float xSpawnPos;
-        float ySpawnPos;
-        _spawnAxis = Random.Range(0, 2) == 0 ? Axis.Horizontal : Axis.Vertical;
-
-        if (_spawnAxis == Axis.Vertical)
-        {
-            xSpawnPos = Random.Range(0, 2) == 0 ? _mainCam.orthographicSize * _mainCam.aspect + 1 : -(_mainCam.orthographicSize * _mainCam.aspect + 1);
-            ySpawnPos = Random.Range(_mainCam.orthographicSize + 1, -(_mainCam.orthographicSize + 1));
-        }
-        else
-        {
-            xSpawnPos = Random.Range(_mainCam.orthographicSize * _mainCam.aspect + 1, -(_mainCam.orthographicSize * _mainCam.aspect + 1));
-            ySpawnPos = Random.Range(0, 2) == 0 ? _mainCam.orthographicSize + 1 : -(_mainCam.orthographicSize + 1);
-        }
-
-        enemy.transform.position = new Vector2(xSpawnPos, ySpawnPos);
+        enemy.transform.position = NewPositionOutsideCamera();
         enemy.OnNewSpawn();
         enemy.gameObject.SetActive(true);
 
