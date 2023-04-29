@@ -9,11 +9,11 @@ public class Launcher : MonoBehaviour
     [SerializeField] float _fireRatePerSec = 1f;
     float _nextFire = 0f;
 
-    [Header("Bullet")]
+    [Header("BULLET")]
     [SerializeField] Bullet _bulletPrefab;
     [SerializeField] float _bulletSpeed = 10f;
 
-    [Header("ObjectPoolSettings")]
+    [Header("OBJECT POOL SETTINGS")]
     [SerializeField] int _defaultCapacity = 10;
     [SerializeField] int _maxSize = 20;   
     ObjectPool<Bullet> _pool;

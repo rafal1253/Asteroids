@@ -5,11 +5,14 @@ using UnityEngine.Pool;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("Enemy")]
+    [Header("ENEMY")]
     [SerializeField] Enemy[] _enemyPrefabList;
-    [SerializeField] float _spawnRate = 2f;
+    [Header("ENEMY SHIP SPAWNING")]
+    [SerializeField] float _minTimeToSpawn;
+    [SerializeField] float _maxTimeToSpawn;
 
-    [Header("ObjectPoolSettings")]
+
+    [Header("OBJECT POOL SETTINGS")]
     [SerializeField] int _defaultCapacity = 10;
     [SerializeField] int _maxSize = 20;
     ObjectPool<Enemy>[] _objectPoolList;

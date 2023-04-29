@@ -6,13 +6,13 @@ using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
-    [Header("Enemy properties")]
+    [Header("ENEMY PROPERTIES")]
     [SerializeField] int _startLifes = 1;
     [SerializeField] int _destroyPoints;
     int _actualLifes;
 
 
-    [Header("Enemy movement")]
+    [Header("ENEMY MOVEMENT")]
     [SerializeField] float _minSpeed = 1f;
     [SerializeField] float _maxSpeed = 4f;
     [Range(0f,5f)] [Tooltip("A larger value means more randomness in the direction of the initial movement. If 0, the object will move towards the center.")]
