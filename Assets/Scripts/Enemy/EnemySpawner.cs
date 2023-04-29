@@ -14,7 +14,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] int _maxSize = 20;
     ObjectPool<Enemy>[] _objectPoolList;
 
-    int _allLevelAsteroidsToDestroy;
     Camera _mainCam;
     Axis _spawnAxis;
 
@@ -32,16 +31,23 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnLevel(LevelManager.Level level)
     {
-        _allLevelAsteroidsToDestroy = 0;
-
         for (int i = 0; i < level.LevelAsteroidsAmounts().Length; i++)
         {
-            _allLevelAsteroidsToDestroy += level.LevelAsteroidsAmounts()[i];
             for (int j = 0; j < level.LevelAsteroidsAmounts()[i]; j++)
             {
                 _objectPoolList[i].Get();
             }
         }
+    }
+
+    private bool IsAllSpawnedEnemiesDestroyed()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.gameObject.activeSelf)
+                return false;
+        }
+        return true;
     }
 
     private Vector2 NewPositionOutsideCamera()
@@ -91,13 +97,12 @@ public class EnemySpawner : MonoBehaviour
         enemy.transform.position = NewPositionOutsideCamera();
         enemy.OnNewSpawn();
         enemy.gameObject.SetActive(true);
-
     }
     private void OnReleaseEnemy(Enemy enemy)
     {
         enemy.gameObject.SetActive(false);
-        _allLevelAsteroidsToDestroy--;
-        if (_allLevelAsteroidsToDestroy <= 0)
+
+        if (IsAllSpawnedEnemiesDestroyed())
             EventManager.InvokeOnEndLevel();
     }
     private void OnDestroyEnemy(Enemy enemy)

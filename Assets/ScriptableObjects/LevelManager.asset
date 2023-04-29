@@ -13,19 +13,23 @@ MonoBehaviour:
   m_Name: LevelManager
   m_EditorClassIdentifier: 
   Levels:
-  - BigAsteroids: 1
+  - BigAsteroids: 2
     MediumAsteroids: 1
-    SmallAsteroids: 1
-    EnemyShips: 1
+    SmallAsteroids: 4
+    EnemyShips: 3
   - BigAsteroids: 2
     MediumAsteroids: 2
     SmallAsteroids: 2
     EnemyShips: 2
+  - BigAsteroids: 5
+    MediumAsteroids: 5
+    SmallAsteroids: 5
+    EnemyShips: 5
   - BigAsteroids: 3
-    MediumAsteroids: 3
+    MediumAsteroids: 2
     SmallAsteroids: 3
-    EnemyShips: 3
-  - BigAsteroids: 4
-    MediumAsteroids: 4
+    EnemyShips: 2
+  - BigAsteroids: 10
+    MediumAsteroids: 7
     SmallAsteroids: 4
-    EnemyShips: 4
+    EnemyShips: 3
