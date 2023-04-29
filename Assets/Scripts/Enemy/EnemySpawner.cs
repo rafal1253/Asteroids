@@ -8,13 +8,13 @@ public class EnemySpawner : MonoBehaviour
     [Header("Enemy")]
     [SerializeField] Enemy[] _enemyPrefabList;
     [SerializeField] float _spawnRate = 2f;
-    [SerializeField] bool _isSpawnOn = false;
 
     [Header("ObjectPoolSettings")]
     [SerializeField] int _defaultCapacity = 10;
     [SerializeField] int _maxSize = 20;
     ObjectPool<Enemy>[] _objectPoolList;
 
+    int _allLevelAsteroidsToDestroy;
     Camera _mainCam;
     Axis _spawnAxis;
 
@@ -28,26 +28,20 @@ public class EnemySpawner : MonoBehaviour
     {
         _mainCam = Camera.main;
         ConstructObjectPoolList();
-        _isSpawnOn = false;
     }
 
-    public void StartSpawn()
+    public void SpawnLevel(LevelManager.Level level)
     {
-        _isSpawnOn = true;
-        StartCoroutine(SpawnEnemies(_spawnRate));
-    }
+        _allLevelAsteroidsToDestroy = 0;
 
-    IEnumerator SpawnEnemies(float spawnRate)
-    {
-        while(_isSpawnOn)
+        for (int i = 0; i < level.LevelAsteroidsAmounts().Length; i++)
         {
-            _objectPoolList[Random.Range(0, _objectPoolList.Length)].Get();
-            yield return new WaitForSeconds(spawnRate);
+            _allLevelAsteroidsToDestroy += level.LevelAsteroidsAmounts()[i];
+            for (int j = 0; j < level.LevelAsteroidsAmounts()[i]; j++)
+            {
+                _objectPoolList[i].Get();
+            }
         }
-    }
-    public void SpawnToggle(bool isSpawnOn)
-    {
-        _isSpawnOn = isSpawnOn;
     }
 
     private Vector2 NewPositionOutsideCamera()
@@ -102,6 +96,9 @@ public class EnemySpawner : MonoBehaviour
     private void OnReleaseEnemy(Enemy enemy)
     {
         enemy.gameObject.SetActive(false);
+        _allLevelAsteroidsToDestroy--;
+        if (_allLevelAsteroidsToDestroy <= 0)
+            EventManager.InvokeOnEndLevel();
     }
     private void OnDestroyEnemy(Enemy enemy)
     {

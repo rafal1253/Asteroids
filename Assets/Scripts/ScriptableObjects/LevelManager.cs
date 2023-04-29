@@ -15,5 +15,10 @@ public class LevelManager : ScriptableObject
         public int MediumAsteroids;
         public int SmallAsteroids;
         public int EnemyShips;
+
+        public int[] LevelAsteroidsAmounts()
+        {
+            return new int[] { BigAsteroids, MediumAsteroids, SmallAsteroids};
+        }
     }
 }

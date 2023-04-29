@@ -12,6 +12,12 @@ public static class EventManager
 
     public static event Action<int> OnUpdatePlayerPoints;
     public static void InvokeOnUpdatePlayerPoints(int points) => OnUpdatePlayerPoints?.Invoke(points);
+
+    public static event Action<int> OnStartLevel;
+    public static void InvokeOnStartLevel(int index) => OnStartLevel?.Invoke(index);
+
+    public static event Action OnEndLevel;
+    public static void InvokeOnEndLevel() => OnEndLevel?.Invoke();
 }
 
 

@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] LevelManager _levels;
     [SerializeField] EnemySpawner _enemySpawner;
-
+    [SerializeField] float _nextLevelDelay = 2f;
     [SerializeField] int _startPlayerLifes = 3;
 
     int _currentLevelIndex;
@@ -36,31 +36,46 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         EventManager.OnStartPlay += StartNewPlay;
+        EventManager.OnEndLevel += StartNextLevel;
     }
     private void OnDisable()
     {
         EventManager.OnStartPlay -= StartNewPlay;
+        EventManager.OnEndLevel -= StartNextLevel;
     }
 
-    private void SetLevel(int index)
-    {
-
-    }
 
     void StartNewPlay()
     {
         CollectedPoints = 0;
         PlayerLifes = _startPlayerLifes;
-
-        _enemySpawner.StartSpawn();
+        _currentLevelIndex = 0;
+        
+        EventManager.InvokeOnStartLevel(_currentLevelIndex);
+        _enemySpawner.SpawnLevel(_levels.Levels[_currentLevelIndex]);
+    }
+    void StartNextLevel()
+    { 
+        StartCoroutine(StartNextLevelCoroutine()); 
+    }
+    IEnumerator StartNextLevelCoroutine()
+    {
+        yield return new WaitForSeconds(_nextLevelDelay);
+        if (_levels.Levels.Length > _currentLevelIndex + 1)
+        {
+            _currentLevelIndex++;
+            
+            EventManager.InvokeOnStartLevel(_currentLevelIndex);
+            _enemySpawner.SpawnLevel(_levels.Levels[_currentLevelIndex]);
+        }
+        else
+            GameOver(); 
     }
 
     void GameOver()
     {
         Data.EarnedPoints = CollectedPoints;
-
-        Debug.LogWarning("ToChange");
-        Data.ReachedLevel = 1;
+        Data.ReachedLevel = _currentLevelIndex + 1;
 
         SceneLoader.Instance.LoadGameOverScreen();
     }

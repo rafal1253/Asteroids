@@ -16,6 +16,8 @@ public class GameplayScreenUIHandler : MonoBehaviour
 
         EventManager.OnUpdatePlayerLifes += UpdatePlayerLifes;
         EventManager.OnUpdatePlayerPoints += UpdatePlayerPoints;
+        EventManager.OnStartLevel += SetLevel;
+
     }
     private void OnDisable()
     {
@@ -23,6 +25,7 @@ public class GameplayScreenUIHandler : MonoBehaviour
 
         EventManager.OnUpdatePlayerLifes -= UpdatePlayerLifes;
         EventManager.OnUpdatePlayerPoints -= UpdatePlayerPoints;
+        EventManager.OnStartLevel -= SetLevel;
 
     }
 
@@ -40,5 +43,9 @@ public class GameplayScreenUIHandler : MonoBehaviour
     void UpdatePlayerPoints(int points)
     {
         _pointsText.text = $"{points}";
+    }
+    void SetLevel(int index)
+    {
+        _levelText.text = $"LEVEL {index + 1}";
     }
 }
