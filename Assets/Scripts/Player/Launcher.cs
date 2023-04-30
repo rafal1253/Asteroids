@@ -5,9 +5,11 @@ using UnityEngine.Pool;
 
 public class Launcher : MonoBehaviour
 {
+    [Header("LAUNCHER")]
     [SerializeField] bool _autoFire = true;
     [SerializeField] float _shotsPerSec = 1f;
     float _nextFire = 0f;
+    bool _isOn = true;
 
     [Header("BULLET")]
     [SerializeField] Bullet _bulletPrefab;
@@ -31,13 +33,19 @@ public class Launcher : MonoBehaviour
 
     private void Shoot()
     {
-        if ((_autoFire ? true : Input.GetButtonDown("Fire1")) && Time.time > _nextFire)
+        if (_isOn)
         {
-            _nextFire = Time.time + 1 / _shotsPerSec;
-            _pool.Get();
+            if ((_autoFire ? true : Input.GetButtonDown("Fire1")) && Time.time > _nextFire)
+            {
+                _nextFire = Time.time + 1 / _shotsPerSec;
+                _pool.Get();
+            }
         }
     }
-
+    public void SwitchOnOff(bool isOn)
+    {
+        _isOn = isOn;
+    }
 
     #region ObjectPool
     private void ConstructPoolObject()

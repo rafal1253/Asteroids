@@ -18,6 +18,12 @@ public static class EventManager
 
     public static event Action OnEndLevel;
     public static void InvokeOnEndLevel() => OnEndLevel?.Invoke();
+
+    public static event Action OnPlayerDeath;
+    public static void InvokeOnPlayerDeath() => OnPlayerDeath?.Invoke();
+
+    public static event Action OnPlayerRespawn;
+    public static void InvokeOnPlayerRespawn() => OnPlayerRespawn?.Invoke();
 }
 
 

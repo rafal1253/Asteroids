@@ -32,6 +32,11 @@ public class Enemy : MonoBehaviour, IDamageable
         _direction = new Vector3(-transform.position.x + Random.Range(-_directionFactor, _directionFactor), -transform.position.y + Random.Range(-_directionFactor, _directionFactor), 0).normalized;
     }
 
+    public void RevertDirection()
+    {
+        _direction *= -1;
+    }
+
     // Update is called once per frame
     protected virtual void Update()
     {
