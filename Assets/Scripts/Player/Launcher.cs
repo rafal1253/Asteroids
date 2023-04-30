@@ -57,9 +57,8 @@ public class Launcher : MonoBehaviour
         bullet.transform.rotation = transform.rotation;
         
         bullet.gameObject.SetActive(true);
-        bullet.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        bullet.GetComponent<Rigidbody2D>().angularVelocity = 0f;
-        bullet.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(0, _bulletSpeed), ForceMode2D.Impulse);
+        bullet.OnLaunching(_bulletSpeed);
+
     }
     private void OnReleaseBullet(Bullet bullet)
     {
