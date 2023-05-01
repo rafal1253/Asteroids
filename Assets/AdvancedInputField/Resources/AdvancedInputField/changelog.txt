@@ -1,0 +1,6 @@
+2.1.4:
+- Bugfix: Fixed email validator not allowing non-unicode letters
+- Bugfix: Fixed issues when duplicating inputfield on runtime while inputfield itself is in edit mode
+- Bugfix: Fixed issue that scrollbars stayed visible when using the inputfield resize modes and the content can completely fit within bounds again
+- Bugfix Mobile : Fixed notch area not taken into account when determining position of ActionBar
+- Feature: Added OnTextTap event to detect rapid taps on the text. For example to do an action when detecting single tap, double tap, triple tap,…
