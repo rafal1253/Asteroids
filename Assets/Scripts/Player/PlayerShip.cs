@@ -13,6 +13,7 @@ public class PlayerShip : MonoBehaviour, IDamageable
     [Header("MOVEMENT")]
     [SerializeField] float _acceleration = 1f;
     [SerializeField] float _maxSpeed = 10f;
+    [Header("DAMAGE")]
     [SerializeField] int _damageOnContact = 1;
 
     Rigidbody2D _rb;
